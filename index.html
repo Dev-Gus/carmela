@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carmela Coffee Shop — Tacuarembó</title>
+<meta name="description" content="Cafetería artesanal en Tacuarembó. Café de especialidad, repostería casera y delivery a domicilio.">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F7F1E7;
+    --rust:#B0562E;
+    --rust-dark:#7A3A1D;
+    --coffee:#3B2A1E;
+    --gold:#C9A15C;
+  }
+  body{font-family:'Work Sans',sans-serif; background:var(--cream); color:var(--coffee);}
+  .font-display{font-family:'Fraunces',serif;}
+  .btn-primary{background:var(--rust); color:var(--cream); transition:all .2s ease;}
+  .btn-primary:hover{background:var(--rust-dark);}
+  .btn-outline{border:1.5px solid var(--rust); color:var(--rust); transition:all .2s ease;}
+  .btn-outline:hover{background:var(--rust); color:var(--cream);}
+  .menu-item{border-bottom:1px dashed rgba(59,42,30,0.25);}
+  .fade-up{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease;}
+  .fade-up.show{opacity:1; transform:translateY(0);}
+  .nav-link{position:relative;}
+  .nav-link::after{content:'';position:absolute;left:0;bottom:-4px;width:0;height:1.5px;background:var(--rust);transition:width .25s ease;}
+  .nav-link:hover::after{width:100%;}
+</style>
+</head>
+<body class="antialiased">
+
+<nav class="fixed top-0 w-full z-50 bg-[var(--cream)]/90 backdrop-blur-sm border-b border-[var(--coffee)]/10">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <span class="font-display text-2xl" style="color:var(--rust)">Carmela</span>
+    <div class="hidden md:flex items-center gap-8 text-sm">
+      <a href="#nosotros" class="nav-link">Nosotros</a>
+      <a href="#menu" class="nav-link">Menú</a>
+      <a href="#galeria" class="nav-link">Galería</a>
+      <a href="#visitanos" class="nav-link">Visitanos</a>
+    </div>
+    <a href="https://wa.me/59809809900" target="_blank" class="btn-primary text-sm px-5 py-2 rounded-full">Pedir por WhatsApp</a>
+  </div>
+</nav>
+
+<section class="relative h-[92vh] min-h-[560px] flex items-end">
+  <img src="images/hero-exterior.jpg" alt="Terraza de Carmela Coffee Shop de noche" class="absolute inset-0 w-full h-full object-cover">
+  <div class="absolute inset-0" style="background:linear-gradient(180deg, rgba(59,42,30,0.15) 0%, rgba(59,42,30,0.75) 90%)"></div>
+  <div class="relative max-w-6xl mx-auto px-6 pb-16 md:pb-20 text-[var(--cream)] w-full">
+    <p class="uppercase tracking-[0.25em] text-xs md:text-sm mb-4 opacity-90">Tacuarembó · Café de especialidad</p>
+    <h1 class="font-display text-5xl md:text-7xl leading-[1.05] mb-6 max-w-2xl">Un rincón cálido para tu café</h1>
+    <p class="text-base md:text-lg max-w-md mb-8 opacity-90">Repostería casera, café de especialidad y platos hechos con cariño, en el corazón de Tacuarembó.</p>
+    <div class="flex flex-wrap gap-4">
+      <a href="#menu" class="btn-primary px-7 py-3 rounded-full text-sm">Ver el menú</a>
+      <a href="https://wa.me/59809809900" target="_blank" class="border border-[var(--cream)]/60 text-[var(--cream)] px-7 py-3 rounded-full text-sm hover:bg-[var(--cream)]/10 transition">Hacer un pedido</a>
+    </div>
+  </div>
+</section>
+
+<section id="nosotros" class="max-w-6xl mx-auto px-6 py-24 grid md:grid-cols-2 gap-14 items-center">
+  <div class="fade-up">
+    <p class="uppercase tracking-[0.2em] text-xs mb-4" style="color:var(--rust)">Nuestra historia</p>
+    <h2 class="font-display text-3xl md:text-4xl mb-6 leading-tight">Hecho a mano, todos los días</h2>
+    <p class="text-[15px] leading-relaxed mb-4 opacity-80">En Carmela elaboramos todos nuestros productos con el objetivo de sorprender y ofrecer los mejores estándares de calidad — desde el primer café de la mañana hasta el último postre de la tarde.</p>
+    <p class="text-[15px] leading-relaxed opacity-80">Un espacio pensado para quedarse: mesas cálidas, buena luz y ese aroma a horno recién hecho que te invita a volver.</p>
+    <div class="flex gap-10 mt-8">
+      <div><p class="font-display text-3xl" style="color:var(--rust)">4.6★</p><p class="text-xs opacity-60 mt-1">410 reseñas en Google</p></div>
+      <div><p class="font-display text-3xl" style="color:var(--rust)">6.8K+</p><p class="text-xs opacity-60 mt-1">Seguidores en Instagram</p></div>
+    </div>
+  </div>
+  <div class="fade-up rounded-2xl overflow-hidden">
+    <img src="images/interior.jpg" alt="Interior de Carmela Coffee Shop" class="w-full h-[420px] object-cover rounded-2xl">
+  </div>
+</section>
+
+<section class="bg-[var(--coffee)] text-[var(--cream)] py-24">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="fade-up text-center mb-14">
+      <p class="uppercase tracking-[0.2em] text-xs mb-4" style="color:var(--gold)">Especialidades</p>
+      <h2 class="font-display text-3xl md:text-4xl">Lo que más piden</h2>
+    </div>
+    <div class="grid md:grid-cols-4 gap-6">
+      <div class="fade-up rounded-2xl overflow-hidden group">
+        <img src="images/berry-tart.png" alt="Tarta de frutos rojos" class="w-full h-64 object-cover group-hover:scale-105 transition duration-500">
+        <p class="text-center mt-4 text-sm opacity-80">Tarta de frutos rojos</p>
+      </div>
+      <div class="fade-up rounded-2xl overflow-hidden group">
+        <img src="images/milkshakes.png" alt="Milkshakes de Carmela" class="w-full h-64 object-cover group-hover:scale-105 transition duration-500">
+        <p class="text-center mt-4 text-sm opacity-80">Milkshakes</p>
+      </div>
+      <div class="fade-up rounded-2xl overflow-hidden group">
+        <img src="images/cakes.png" alt="Tortas caseras" class="w-full h-64 object-cover group-hover:scale-105 transition duration-500">
+        <p class="text-center mt-4 text-sm opacity-80">Tortas caseras</p>
+      </div>
+      <div class="fade-up rounded-2xl overflow-hidden group">
+        <img src="images/delivery-box.png" alt="Caja de delivery Carmela" class="w-full h-64 object-cover group-hover:scale-105 transition duration-500">
+        <p class="text-center mt-4 text-sm opacity-80">Delivery a domicilio</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="menu" class="max-w-6xl mx-auto px-6 py-24">
+  <div class="fade-up text-center mb-16">
+    <p class="uppercase tracking-[0.2em] text-xs mb-4" style="color:var(--rust)">Nuestro menú</p>
+    <h2 class="font-display text-3xl md:text-4xl">Café, dulce y salado</h2>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-x-16 gap-y-14">
+    <div class="fade-up">
+      <h3 class="font-display text-xl mb-5 pb-2" style="color:var(--rust); border-bottom:2px solid var(--rust)">Bebidas calientes</h3>
+      <div class="space-y-3 text-sm">
+        <div class="menu-item flex justify-between py-2"><span>Capuccino</span><span class="opacity-60">$190</span></div>
+        <div class="menu-item flex justify-between py-2"><span>Cortado</span><span class="opacity-60">$150</span></div>
+        <div class="menu-item flex justify-between py-2"><span>Café Latte</span><span class="opacity-60">$180</span></div>
+        <div class="menu-item flex justify-between py-2"><span>Submarino</span><span class="opacity-60">$190</span></div>
+        <div class="menu-item flex justify-between py-2"><span>Mocaccino</span><span class="opacity-60">$250</span></div>
+        <div class="menu-item flex justify-between py-2"><span>Dulce Café</span><span class="opacity-60">$220</span></div>
+        <div class="menu-item flex justify-between py-2"><span>Café Vienés</span><span class="opacity-60">$180</span></div>
+        <div class="menu-item flex justify-between py-2"><span>Affogato</span><span class="opacity-60">$220</span></div>
+      </div>
+    </div>
+
+    <div class="fade-up">
+      <h3 class="font-display text-xl mb-5 pb-2" style="color:var(--rust); border-bottom:2px solid var(--rust)">Bebidas frías</h3>
+      <div class="space-y-3 text-sm">
+        <div class="menu-item flex justify-between py-2"><span>Exprimido natural de naranja</span><span class="opacity-60">$140</span></div>
+        <div class="menu-item flex justify-between py-2"><span>Limonada menta y jengibre</span><span class="opacity-60">$150</span></div>
+        <div class="menu-item flex justify-between py-2"><span>Licuado</span><span class="opacity-60">$150</span></div>
+        <div class="menu-item flex justify-between py-2"><span>Milkshake</span><span class="opacity-60">$280</span></div>
+        <div class="menu-item flex justify-between py-2"><span>Frappuccino</span><span class="opacity-60">$250</span></div>
+        <div class="menu-item flex justify-between py-2"><span>Yogurt con granola y frutas</span><span class="opacity-60">$220</span></div>
+        <div class="menu-item flex justify-between py-2"><span>Copa helada</span><span class="opacity-60">$250</span></div>
+      </div>
+    </div>
+
+    <div class="fade-up">
+      <h3 class="font-display text-xl mb-5 pb-2" style="color:var(--rust); border-bottom:2px solid var(--rust)">Bocados salados</h3>
+      <div class="space-y-3 text-sm">
+        <div class="menu-item flex justify-between py-2"><span>Sandwich caliente</span><span class="opacity-60">$220</span></div>
+        <div class="menu-item flex justify-between py-2"><span>Empanadas</span><span class="opacity-60">$70</span></div>
+        <div class="menu-item flex justify-between py-2"><span>Tartas</span><span class="opacity-60">$160</span></div>
+        <div class="menu-item flex justify-between py-2"><span>Crepas</span><span class="opacity-60">desde $160</span></div>
+        <div class="menu-item flex justify-between py-2"><span>Scon de queso</span><span class="opacity-60">$75</span></div>
+        <div class="menu-item flex justify-between py-2"><span>Medialunas</span><span class="opacity-60">$100</span></div>
+      </div>
+    </div>
+
+    <div class="fade-up">
+      <h3 class="font-display text-xl mb-5 pb-2" style="color:var(--rust); border-bottom:2px solid var(--rust)">Bocados dulces</h3>
+      <div class="space-y-3 text-sm">
+        <div class="menu-item flex justify-between py-2"><span>Alfajores</span><span class="opacity-60">$35</span></div>
+        <div class="menu-item flex justify-between py-2"><span>Porción de brownie</span><span class="opacity-60">$160</span></div>
+        <div class="menu-item flex justify-between py-2"><span>Rolls de canela</span><span class="opacity-60">$70</span></div>
+        <div class="menu-item flex justify-between py-2"><span>Frolas</span><span class="opacity-60">$90</span></div>
+        <div class="menu-item flex justify-between py-2"><span>Pancakes</span><span class="opacity-60">$220</span></div>
+        <div class="menu-item flex justify-between py-2"><span>Waffles</span><span class="opacity-60">$220</span></div>
+      </div>
+    </div>
+  </div>
+
+  <p class="text-center text-xs opacity-50 mt-12">Menú sujeto a disponibilidad del día. Todas las bebidas se preparan con leche entera, salvo indicación.</p>
+</section>
+
+<section id="galeria" class="bg-[var(--rust)]/5 py-24">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="fade-up text-center mb-14">
+      <p class="uppercase tracking-[0.2em] text-xs mb-4" style="color:var(--rust)">Galería</p>
+      <h2 class="font-display text-3xl md:text-4xl">Un poco de Carmela</h2>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <img src="images/drinks-tray.png" alt="Bandeja de bebidas" class="fade-up w-full h-52 object-cover rounded-xl">
+      <img src="images/strawberry-dessert.png" alt="Postre de frutillas" class="fade-up w-full h-52 object-cover rounded-xl">
+      <img src="images/juice-banana-bread.png" alt="Jugo y pan de banana" class="fade-up w-full h-52 object-cover rounded-xl">
+      <img src="images/hero-exterior.jpg" alt="Terraza exterior" class="fade-up w-full h-52 object-cover rounded-xl">
+    </div>
+  </div>
+</section>
+
+<section id="visitanos" class="max-w-6xl mx-auto px-6 py-24 grid md:grid-cols-2 gap-14">
+  <div class="fade-up">
+    <p class="uppercase tracking-[0.2em] text-xs mb-4" style="color:var(--rust)">Visitanos</p>
+    <h2 class="font-display text-3xl md:text-4xl mb-8">Te esperamos</h2>
+
+    <div class="space-y-6 text-sm">
+      <div class="flex gap-4">
+        <span style="color:var(--rust)">📍</span>
+        <div><p class="font-medium mb-1">Dirección</p><p class="opacity-70">Treinta y Tres 309, Tacuarembó</p></div>
+      </div>
+      <div class="flex gap-4">
+        <span style="color:var(--rust)">🕐</span>
+        <div>
+          <p class="font-medium mb-1">Horario</p>
+          <p class="opacity-70">Lunes: 16:00 – 20:30hs</p>
+          <p class="opacity-70">Martes a sábado: 9:00 – 13:00hs y 16:00 – 20:30hs</p>
+          <p class="opacity-70">Domingo: cerrado</p>
+        </div>
+      </div>
+      <div class="flex gap-4">
+        <span style="color:var(--rust)">🛵</span>
+        <div><p class="font-medium mb-1">Delivery</p><p class="opacity-70">Hacé tu pedido y te lo llevamos a la puerta de tu casa.</p></div>
+      </div>
+    </div>
+
+    <a href="https://wa.me/59809809900" target="_blank" class="btn-primary inline-block mt-8 px-7 py-3 rounded-full text-sm">Escribinos por WhatsApp</a>
+  </div>
+  <div class="fade-up rounded-2xl overflow-hidden h-[420px]">
+    <iframe class="w-full h-full grayscale-[15%]" style="border:0" loading="lazy" allowfullscreen
+      src="https://www.google.com/maps?q=Treinta+y+Tres+309,+Tacuaremb%C3%B3&output=embed">
+    </iframe>
+  </div>
+</section>
+
+<footer class="bg-[var(--coffee)] text-[var(--cream)]/70 py-10">
+  <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
+    <span class="font-display text-xl text-[var(--cream)]">Carmela</span>
+    <p>Tacuarembó, Uruguay · @carmelacoffeeshop</p>
+    <p class="opacity-50 text-xs">Sitio de demostración — diseñado y desarrollado a medida</p>
+  </div>
+</footer>
+
+<script>
+  const els = document.querySelectorAll('.fade-up');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); } });
+  }, {threshold:0.15});
+  els.forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
