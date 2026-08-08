@@ -5,6 +5,48 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Carmela Coffee Shop — Tacuarembó</title>
 <meta name="description" content="Cafetería artesanal en Tacuarembó. Café de especialidad, repostería casera y delivery a domicilio.">
+<link rel="canonical" href="https://cafecarmela.netlify.app/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☕</text></svg>">
+
+<meta property="og:type" content="restaurant.restaurant">
+<meta property="og:title" content="Carmela Coffee Shop — Tacuarembó">
+<meta property="og:description" content="Cafetería artesanal en Tacuarembó. Café de especialidad, repostería casera y delivery a domicilio.">
+<meta property="og:image" content="https://cafecarmela.netlify.app/images/hero-exterior.webp">
+<meta property="og:url" content="https://cafecarmela.netlify.app/">
+<meta property="og:locale" content="es_UY">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Carmela Coffee Shop — Tacuarembó">
+<meta name="twitter:description" content="Cafetería artesanal en Tacuarembó. Café de especialidad, repostería casera y delivery a domicilio.">
+<meta name="twitter:image" content="https://cafecarmela.netlify.app/images/hero-exterior.webp">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CafeOrCoffeeShop",
+  "name": "Carmela Coffee Shop",
+  "image": "https://cafecarmela.netlify.app/images/hero-exterior.webp",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Treinta y Tres 309",
+    "addressLocality": "Tacuarembó",
+    "addressCountry": "UY"
+  },
+  "telephone": "+59898909482",
+  "servesCuisine": "Café y repostería",
+  "priceRange": "$$",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.6",
+    "reviewCount": "410"
+  },
+  "openingHoursSpecification": [
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Monday","opens":"16:00","closes":"20:30"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"09:00","closes":"13:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"16:00","closes":"20:30"}
+  ]
+}
+</script>
+
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -41,12 +83,23 @@
       <a href="#galeria" class="nav-link">Galería</a>
       <a href="#visitanos" class="nav-link">Visitanos</a>
     </div>
-    <a href="https://wa.me/59898909482" target="_blank" class="btn-primary text-sm px-5 py-2 rounded-full">Pedir por WhatsApp</a>
+    <div class="flex items-center gap-3">
+      <a href="https://wa.me/59898909482" target="_blank" class="btn-primary text-sm px-5 py-2 rounded-full">Pedir por WhatsApp</a>
+      <button id="menu-toggle" aria-label="Abrir menú" aria-expanded="false" class="md:hidden p-2 -mr-2" style="color:var(--coffee)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+    </div>
+  </div>
+  <div id="mobile-menu" class="hidden md:hidden flex-col text-sm bg-[var(--cream)] border-t border-[var(--coffee)]/10">
+    <a href="#nosotros" class="block px-6 py-3 border-b border-[var(--coffee)]/10">Nosotros</a>
+    <a href="#menu" class="block px-6 py-3 border-b border-[var(--coffee)]/10">Menú</a>
+    <a href="#galeria" class="block px-6 py-3 border-b border-[var(--coffee)]/10">Galería</a>
+    <a href="#visitanos" class="block px-6 py-3">Visitanos</a>
   </div>
 </nav>
 
 <section class="relative h-[92vh] min-h-[560px] flex items-end">
-  <img src="images/hero-exterior.jpg" alt="Terraza de Carmela Coffee Shop de noche" class="absolute inset-0 w-full h-full object-cover">
+  <img src="images/hero-exterior.webp" alt="Terraza de Carmela Coffee Shop de noche" width="680" height="382" fetchpriority="high" class="absolute inset-0 w-full h-full object-cover">
   <div class="absolute inset-0" style="background:linear-gradient(180deg, rgba(59,42,30,0.15) 0%, rgba(59,42,30,0.75) 90%)"></div>
   <div class="relative max-w-6xl mx-auto px-6 pb-16 md:pb-20 text-[var(--cream)] w-full">
     <p class="uppercase tracking-[0.25em] text-xs md:text-sm mb-4 opacity-90">Tacuarembó · Café de especialidad</p>
@@ -71,7 +124,7 @@
     </div>
   </div>
   <div class="fade-up rounded-2xl overflow-hidden">
-    <img src="images/interior.jpg" alt="Interior de Carmela Coffee Shop" class="w-full h-[420px] object-cover rounded-2xl">
+    <img src="images/interior.webp" alt="Interior de Carmela Coffee Shop" width="382" height="510" loading="lazy" class="w-full h-[420px] object-cover rounded-2xl">
   </div>
 </section>
 
@@ -83,19 +136,19 @@
     </div>
     <div class="grid md:grid-cols-4 gap-6">
       <div class="fade-up rounded-2xl overflow-hidden group">
-        <img src="images/berry-tart.png" alt="Tarta de frutos rojos" class="w-full h-64 object-cover group-hover:scale-105 transition duration-500">
+        <img src="images/berry-tart.webp" alt="Tarta de frutos rojos" width="336" height="476" loading="lazy" class="w-full h-64 object-cover group-hover:scale-105 transition duration-500">
         <p class="text-center mt-4 text-sm opacity-80">Tarta de frutos rojos</p>
       </div>
       <div class="fade-up rounded-2xl overflow-hidden group">
-        <img src="images/milkshakes.png" alt="Milkshakes de Carmela" class="w-full h-64 object-cover group-hover:scale-105 transition duration-500">
+        <img src="images/milkshakes.webp" alt="Milkshakes de Carmela" width="341" height="477" loading="lazy" class="w-full h-64 object-cover group-hover:scale-105 transition duration-500">
         <p class="text-center mt-4 text-sm opacity-80">Milkshakes</p>
       </div>
       <div class="fade-up rounded-2xl overflow-hidden group">
-        <img src="images/cakes.png" alt="Tortas caseras" class="w-full h-64 object-cover group-hover:scale-105 transition duration-500">
+        <img src="images/cakes.webp" alt="Tortas caseras" width="337" height="481" loading="lazy" class="w-full h-64 object-cover group-hover:scale-105 transition duration-500">
         <p class="text-center mt-4 text-sm opacity-80">Tortas caseras</p>
       </div>
       <div class="fade-up rounded-2xl overflow-hidden group">
-        <img src="images/delivery-box.png" alt="Caja de delivery Carmela" class="w-full h-64 object-cover group-hover:scale-105 transition duration-500">
+        <img src="images/delivery-box.webp" alt="Caja de delivery Carmela" width="341" height="477" loading="lazy" class="w-full h-64 object-cover group-hover:scale-105 transition duration-500">
         <p class="text-center mt-4 text-sm opacity-80">Delivery a domicilio</p>
       </div>
     </div>
@@ -171,10 +224,10 @@
       <h2 class="font-display text-3xl md:text-4xl">Un poco de Carmela</h2>
     </div>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-      <img src="images/drinks-tray.png" alt="Bandeja de bebidas" class="fade-up w-full h-52 object-cover rounded-xl">
-      <img src="images/strawberry-dessert.png" alt="Postre de frutillas" class="fade-up w-full h-52 object-cover rounded-xl">
-      <img src="images/juice-banana-bread.png" alt="Jugo y pan de banana" class="fade-up w-full h-52 object-cover rounded-xl">
-      <img src="images/hero-exterior.jpg" alt="Terraza exterior" class="fade-up w-full h-52 object-cover rounded-xl">
+      <img src="images/drinks-tray.webp" alt="Bandeja de bebidas" width="345" height="482" loading="lazy" class="fade-up w-full h-52 object-cover rounded-xl">
+      <img src="images/strawberry-dessert.webp" alt="Postre de frutillas" width="337" height="478" loading="lazy" class="fade-up w-full h-52 object-cover rounded-xl">
+      <img src="images/juice-banana-bread.webp" alt="Jugo y pan de banana" width="412" height="589" loading="lazy" class="fade-up w-full h-52 object-cover rounded-xl">
+      <img src="images/hero-exterior.webp" alt="Terraza exterior" width="680" height="382" loading="lazy" class="fade-up w-full h-52 object-cover rounded-xl">
     </div>
   </div>
 </section>
@@ -208,6 +261,7 @@
   </div>
   <div class="fade-up rounded-2xl overflow-hidden h-[420px]">
     <iframe class="w-full h-full grayscale-[15%]" style="border:0" loading="lazy" allowfullscreen
+      title="Ubicación de Carmela Coffee Shop en el mapa"
       src="https://www.google.com/maps?q=Treinta+y+Tres+309,+Tacuaremb%C3%B3&output=embed">
     </iframe>
   </div>
@@ -227,6 +281,22 @@
     entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); } });
   }, {threshold:0.15});
   els.forEach(el=>io.observe(el));
+
+  const menuToggle = document.getElementById('menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  menuToggle.addEventListener('click', () => {
+    const isOpen = !mobileMenu.classList.contains('hidden');
+    mobileMenu.classList.toggle('hidden');
+    mobileMenu.classList.toggle('flex');
+    menuToggle.setAttribute('aria-expanded', String(!isOpen));
+  });
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden');
+      mobileMenu.classList.remove('flex');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
 </script>
 
 </body>
