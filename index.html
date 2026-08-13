@@ -93,6 +93,20 @@
   #lightbox-close{position:absolute;top:20px;right:20px;width:40px;height:40px;border-radius:9999px;display:flex;align-items:center;justify-content:center;background:rgba(247,241,231,0.15);color:var(--cream);}
   #lightbox-close:hover{background:rgba(247,241,231,0.25);}
   .gallery-item{cursor:zoom-in;}
+
+  /* Mobile menu: smooth open/close instead of abrupt display toggle */
+  .mobile-menu-panel{opacity:0; transform:translateY(-8px); transition:opacity .22s ease, transform .22s ease;}
+  .mobile-menu-panel.open{opacity:1; transform:translateY(0);}
+
+  /* Hamburger -> X icon animation */
+  .hamburger{position:relative;width:22px;height:16px;display:block;}
+  .hamburger-line{position:absolute;left:0;width:22px;height:2px;border-radius:2px;background:currentColor;transition:transform .3s ease, opacity .2s ease, top .3s ease;}
+  .hamburger-line-1{top:0;}
+  .hamburger-line-2{top:7px;}
+  .hamburger-line-3{top:14px;}
+  #menu-toggle[aria-expanded="true"] .hamburger-line-1{top:7px; transform:rotate(45deg);}
+  #menu-toggle[aria-expanded="true"] .hamburger-line-2{opacity:0;}
+  #menu-toggle[aria-expanded="true"] .hamburger-line-3{top:7px; transform:rotate(-45deg);}
 </style>
 </head>
 <body class="antialiased">
@@ -107,10 +121,14 @@
       <a href="#visitanos" class="nav-link">Visitanos</a>
     </div>
     <button id="menu-toggle" aria-label="Abrir menú" aria-expanded="false" class="md:hidden p-2 -mr-2" style="color:var(--coffee)">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      <span class="hamburger">
+        <span class="hamburger-line hamburger-line-1"></span>
+        <span class="hamburger-line hamburger-line-2"></span>
+        <span class="hamburger-line hamburger-line-3"></span>
+      </span>
     </button>
   </div>
-  <div id="mobile-menu" class="hidden md:hidden flex-col text-sm border-t border-coffee-10 shadow-lg" style="background:rgba(247,241,231,1)">
+  <div id="mobile-menu" class="hidden md:hidden flex-col text-sm border-t border-coffee-10 shadow-lg mobile-menu-panel" style="background:rgba(247,241,231,1)">
     <a href="#nosotros" class="block px-6 py-3 border-b border-coffee-10">Nosotros</a>
     <a href="#menu" class="block px-6 py-3 border-b border-coffee-10">Menú</a>
     <a href="#galeria" class="block px-6 py-3 border-b border-coffee-10">Galería</a>
@@ -338,18 +356,32 @@
 
   const menuToggle = document.getElementById('menu-toggle');
   const mobileMenu = document.getElementById('mobile-menu');
-  menuToggle.addEventListener('click', () => {
-    const isOpen = !mobileMenu.classList.contains('hidden');
-    mobileMenu.classList.toggle('hidden');
-    mobileMenu.classList.toggle('flex');
-    menuToggle.setAttribute('aria-expanded', String(!isOpen));
-  });
-  mobileMenu.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
+
+  function openMenu(){
+    mobileMenu.classList.remove('hidden');
+    mobileMenu.classList.add('flex');
+    // force a reflow so the browser registers the starting state before we animate
+    void mobileMenu.offsetHeight;
+    mobileMenu.classList.add('open');
+    menuToggle.setAttribute('aria-expanded', 'true');
+  }
+  function closeMenu(){
+    if (mobileMenu.classList.contains('hidden')) return;
+    mobileMenu.classList.remove('open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+    const onEnd = (e) => {
+      if (e.target !== mobileMenu || e.propertyName !== 'opacity') return;
       mobileMenu.classList.add('hidden');
       mobileMenu.classList.remove('flex');
-      menuToggle.setAttribute('aria-expanded', 'false');
-    });
+      mobileMenu.removeEventListener('transitionend', onEnd);
+    };
+    mobileMenu.addEventListener('transitionend', onEnd);
+  }
+  menuToggle.addEventListener('click', () => {
+    mobileMenu.classList.contains('open') ? closeMenu() : openMenu();
+  });
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', closeMenu);
   });
 
   const lightbox = document.getElementById('lightbox');
