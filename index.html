@@ -82,6 +82,15 @@
   .bg-rust-5{background:rgba(176,86,46,0.05);}
   .text-cream-70{color:rgba(247,241,231,0.70);}
 
+  /* Especialidades cards: fixed pixel height crops badly as width grows
+     from 320px to 768px. aspect-ratio scales the height with the box's
+     own width instead of using one height at every size. At md+ the
+     4-column layout already looks right, so it reverts to a fixed height. */
+  .specialty-photo{width:100%; aspect-ratio:4/3; object-fit:cover;}
+  @media (min-width:768px){
+    .specialty-photo{aspect-ratio:auto; height:16rem;}
+  }
+
   /* WhatsApp floating action button */
   .fab-whatsapp{position:fixed;right:20px;bottom:calc(20px + env(safe-area-inset-bottom));z-index:50;width:56px;height:56px;border-radius:9999px;background:#25D366;box-shadow:0 6px 20px rgba(59,42,30,0.35);display:flex;align-items:center;justify-content:center;transition:transform .2s ease, box-shadow .2s ease;}
   .fab-whatsapp:hover{transform:translateY(-2px) scale(1.05);box-shadow:0 10px 24px rgba(59,42,30,0.4);}
@@ -92,6 +101,14 @@
   #lightbox img{max-width:92vw;max-height:88vh;border-radius:12px;object-fit:contain;}
   #lightbox-close{position:absolute;top:20px;right:20px;width:40px;height:40px;border-radius:9999px;display:flex;align-items:center;justify-content:center;background:rgba(247,241,231,0.15);color:var(--cream);}
   #lightbox-close:hover{background:rgba(247,241,231,0.25);}
+  .lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:9999px;display:flex;align-items:center;justify-content:center;background:rgba(247,241,231,0.15);color:var(--cream);transition:background .2s ease;}
+  .lightbox-nav:hover{background:rgba(247,241,231,0.25);}
+  .lightbox-prev{left:12px;}
+  .lightbox-next{right:12px;}
+  @media (min-width:768px){
+    .lightbox-prev{left:24px;}
+    .lightbox-next{right:24px;}
+  }
   .gallery-item{cursor:zoom-in;}
 
   /* Mobile menu: CSS Grid fr-unit collapse. No display:none/flex toggling,
@@ -136,7 +153,9 @@
 
 <nav class="fixed top-0 w-full z-50 backdrop-blur-sm border-b border-coffee-10" style="background:rgba(247,241,231,0.95)">
   <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-    <img src="images/logo-rust.webp" alt="Carmela" width="900" height="303" class="h-8 md:h-9 w-auto">
+    <a href="#" id="logo-home" aria-label="Carmela - Ir al inicio">
+      <img src="images/logo-rust.webp" alt="Carmela" width="900" height="303" class="h-8 md:h-9 w-auto">
+    </a>
     <div class="hidden md:flex items-center gap-8 text-sm">
       <a href="#nosotros" class="nav-link">Nosotros</a>
       <a href="#menu" class="nav-link">Menú</a>
@@ -199,19 +218,19 @@
     </div>
     <div class="grid md:grid-cols-4 gap-6">
       <div class="fade-up rounded-2xl overflow-hidden group">
-        <img src="images/cheesecake.webp" alt="Cheesecake de frutos rojos" width="934" height="1015" loading="lazy" class="w-full h-64 object-cover group-hover:scale-105 transition duration-500">
+        <img src="images/cheesecake.webp" alt="Cheesecake de frutos rojos" width="934" height="1015" loading="lazy" class="specialty-photo group-hover:scale-105 transition duration-500">
         <p class="text-center mt-4 text-sm opacity-80">Tarta de frutos rojos</p>
       </div>
       <div class="fade-up rounded-2xl overflow-hidden group">
-        <img src="images/milkshakes.webp" alt="Milkshakes de Carmela" width="854" height="1099" loading="lazy" class="w-full h-64 object-cover group-hover:scale-105 transition duration-500">
+        <img src="images/milkshakes.webp" alt="Milkshakes de Carmela" width="854" height="1099" loading="lazy" class="specialty-photo group-hover:scale-105 transition duration-500">
         <p class="text-center mt-4 text-sm opacity-80">Milkshakes</p>
       </div>
       <div class="fade-up rounded-2xl overflow-hidden group">
-        <img src="images/cakes.webp" alt="Tortas caseras" width="847" height="980" loading="lazy" class="w-full h-64 object-cover group-hover:scale-105 transition duration-500">
+        <img src="images/cakes.webp" alt="Tortas caseras" width="847" height="980" loading="lazy" class="specialty-photo group-hover:scale-105 transition duration-500">
         <p class="text-center mt-4 text-sm opacity-80">Tortas caseras</p>
       </div>
       <div class="fade-up rounded-2xl overflow-hidden group">
-        <img src="images/delivery-box.webp" alt="Caja de delivery Carmela" width="854" height="1099" loading="lazy" class="w-full h-64 object-cover group-hover:scale-105 transition duration-500">
+        <img src="images/delivery-box.webp" alt="Caja de delivery Carmela" width="854" height="1099" loading="lazy" class="specialty-photo group-hover:scale-105 transition duration-500">
         <p class="text-center mt-4 text-sm opacity-80">Delivery a domicilio</p>
       </div>
     </div>
@@ -298,6 +317,12 @@
 <div id="lightbox" role="dialog" aria-modal="true" aria-label="Foto ampliada">
   <button id="lightbox-close" aria-label="Cerrar">
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+  </button>
+  <button id="lightbox-prev" class="lightbox-nav lightbox-prev" aria-label="Foto anterior">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+  </button>
+  <button id="lightbox-next" class="lightbox-nav lightbox-next" aria-label="Foto siguiente">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
   </button>
   <img id="lightbox-img" src="" alt="">
 </div>
@@ -401,13 +426,28 @@
     link.addEventListener('click', closeMenu);
   });
 
+  document.getElementById('logo-home').addEventListener('click', (e) => {
+    e.preventDefault();
+    if (mobileMenu.classList.contains('open')) closeMenu();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightbox-img');
   const lightboxClose = document.getElementById('lightbox-close');
+  const lightboxPrev = document.getElementById('lightbox-prev');
+  const lightboxNext = document.getElementById('lightbox-next');
+  const galleryItems = Array.from(document.querySelectorAll('.gallery-item'));
+  let currentIndex = 0;
 
-  function openLightbox(src, alt) {
-    lightboxImg.src = src;
-    lightboxImg.alt = alt;
+  function showImage(index) {
+    currentIndex = (index + galleryItems.length) % galleryItems.length;
+    const img = galleryItems[currentIndex];
+    lightboxImg.src = img.src;
+    lightboxImg.alt = img.alt;
+  }
+  function openLightbox(index) {
+    showImage(index);
     lightbox.classList.add('show');
     document.documentElement.style.overflow = 'hidden';
   }
@@ -417,21 +457,26 @@
     document.documentElement.style.overflow = '';
   }
 
-  document.querySelectorAll('.gallery-item').forEach(img => {
-    img.addEventListener('click', () => openLightbox(img.src, img.alt));
+  galleryItems.forEach((img, index) => {
+    img.addEventListener('click', () => openLightbox(index));
     img.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        openLightbox(img.src, img.alt);
+        openLightbox(index);
       }
     });
   });
   lightboxClose.addEventListener('click', closeLightbox);
+  lightboxPrev.addEventListener('click', () => showImage(currentIndex - 1));
+  lightboxNext.addEventListener('click', () => showImage(currentIndex + 1));
   lightbox.addEventListener('click', (e) => {
     if (e.target === lightbox) closeLightbox();
   });
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && lightbox.classList.contains('show')) closeLightbox();
+    if (!lightbox.classList.contains('show')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') showImage(currentIndex - 1);
+    if (e.key === 'ArrowRight') showImage(currentIndex + 1);
   });
 </script>
 
