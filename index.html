@@ -94,9 +94,32 @@
   #lightbox-close:hover{background:rgba(247,241,231,0.25);}
   .gallery-item{cursor:zoom-in;}
 
-  /* Mobile menu: smooth open/close instead of abrupt display toggle */
-  .mobile-menu-panel{opacity:0; transform:translateY(-8px); transition:opacity .22s ease, transform .22s ease;}
-  .mobile-menu-panel.open{opacity:1; transform:translateY(0);}
+  /* Mobile menu: CSS Grid fr-unit collapse. No display:none/flex toggling,
+     no JS-forced reflow, no hardcoded max-height. The grid track animates
+     from 0fr to 1fr (its natural content height), which is the standard
+     way to transition to/from "auto" height in CSS. */
+  #mobile-menu{
+    display:grid;
+    grid-template-rows:0fr;
+    transition:grid-template-rows .32s cubic-bezier(0.4,0,0.2,1);
+  }
+  #mobile-menu.open{grid-template-rows:1fr;}
+  @media (min-width:768px){
+    #mobile-menu{display:none;}
+  }
+  #mobile-menu .mobile-menu-inner{
+    overflow:hidden;
+    min-height:0;
+    opacity:0;
+    border-top:1px solid transparent;
+    box-shadow:none;
+    transition:opacity .22s ease, border-color .22s ease, box-shadow .22s ease;
+  }
+  #mobile-menu.open .mobile-menu-inner{
+    opacity:1;
+    border-top-color:rgba(59,42,30,0.10);
+    box-shadow:0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+  }
 
   /* Hamburger -> X icon animation */
   .hamburger{position:relative;width:22px;height:16px;display:block;}
@@ -128,11 +151,13 @@
       </span>
     </button>
   </div>
-  <div id="mobile-menu" class="hidden md:hidden flex-col text-sm border-t border-coffee-10 shadow-lg mobile-menu-panel" style="background:rgba(247,241,231,1)">
-    <a href="#nosotros" class="block px-6 py-3 border-b border-coffee-10">Nosotros</a>
-    <a href="#menu" class="block px-6 py-3 border-b border-coffee-10">Menú</a>
-    <a href="#galeria" class="block px-6 py-3 border-b border-coffee-10">Galería</a>
-    <a href="#visitanos" class="block px-6 py-3">Visitanos</a>
+  <div id="mobile-menu" class="text-sm" aria-hidden="true" inert>
+    <div class="mobile-menu-inner" style="background:rgba(247,241,231,1)">
+      <a href="#nosotros" class="block px-6 py-3 border-b border-coffee-10">Nosotros</a>
+      <a href="#menu" class="block px-6 py-3 border-b border-coffee-10">Menú</a>
+      <a href="#galeria" class="block px-6 py-3 border-b border-coffee-10">Galería</a>
+      <a href="#visitanos" class="block px-6 py-3">Visitanos</a>
+    </div>
   </div>
 </nav>
 
@@ -358,24 +383,16 @@
   const mobileMenu = document.getElementById('mobile-menu');
 
   function openMenu(){
-    mobileMenu.classList.remove('hidden');
-    mobileMenu.classList.add('flex');
-    // force a reflow so the browser registers the starting state before we animate
-    void mobileMenu.offsetHeight;
     mobileMenu.classList.add('open');
+    mobileMenu.removeAttribute('inert');
+    mobileMenu.setAttribute('aria-hidden', 'false');
     menuToggle.setAttribute('aria-expanded', 'true');
   }
   function closeMenu(){
-    if (mobileMenu.classList.contains('hidden')) return;
     mobileMenu.classList.remove('open');
+    mobileMenu.setAttribute('inert', '');
+    mobileMenu.setAttribute('aria-hidden', 'true');
     menuToggle.setAttribute('aria-expanded', 'false');
-    const onEnd = (e) => {
-      if (e.target !== mobileMenu || e.propertyName !== 'opacity') return;
-      mobileMenu.classList.add('hidden');
-      mobileMenu.classList.remove('flex');
-      mobileMenu.removeEventListener('transitionend', onEnd);
-    };
-    mobileMenu.addEventListener('transitionend', onEnd);
   }
   menuToggle.addEventListener('click', () => {
     mobileMenu.classList.contains('open') ? closeMenu() : openMenu();
