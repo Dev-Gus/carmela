@@ -91,6 +91,23 @@
     .specialty-photo{aspect-ratio:auto; height:16rem;}
   }
 
+  /* Gallery images: same reasoning as specialty-photo above — aspect-ratio
+     instead of a fixed height, so the box scales correctly across every
+     column count, including the new 2-column tier below. */
+  .gallery-photo{width:100%; aspect-ratio:4/3; object-fit:cover;}
+  @media (min-width:768px){
+    .gallery-photo{aspect-ratio:auto; height:13rem;}
+  }
+
+  /* Mid-size screens (480–767px): single column feels oversized here,
+     but 4 columns (the md:768px+ layout) is too cramped. 2 columns
+     bridges the gap. Bounded on both ends so it never overlaps the
+     mobile-only or md+ rules. */
+  @media (min-width:480px) and (max-width:767.98px){
+    .specialty-grid{grid-template-columns:repeat(2,1fr); gap:2rem;}
+    .gallery-grid{grid-template-columns:repeat(2,1fr);}
+  }
+
   /* WhatsApp floating action button */
   .fab-whatsapp{position:fixed;right:20px;bottom:calc(20px + env(safe-area-inset-bottom));z-index:50;width:56px;height:56px;border-radius:9999px;background:#25D366;box-shadow:0 6px 20px rgba(59,42,30,0.35);display:flex;align-items:center;justify-content:center;transition:transform .2s ease, box-shadow .2s ease;}
   .fab-whatsapp:hover{transform:translateY(-2px) scale(1.05);box-shadow:0 10px 24px rgba(59,42,30,0.4);}
@@ -216,7 +233,7 @@
       <p class="uppercase tracking-[0.2em] text-xs mb-4" style="color:var(--gold)">Especialidades</p>
       <h2 class="font-display text-3xl md:text-4xl">Lo que más piden</h2>
     </div>
-    <div class="grid gap-14 md:grid-cols-4 md:gap-6">
+    <div class="grid gap-14 specialty-grid md:grid-cols-4 md:gap-6">
       <div class="fade-up rounded-2xl overflow-hidden group">
         <img src="images/cheesecake.webp" alt="Cheesecake de frutos rojos" width="934" height="1015" loading="lazy" class="specialty-photo group-hover:scale-105 transition duration-500">
         <p class="text-center mt-5 font-medium opacity-90">Tarta de frutos rojos</p>
@@ -305,11 +322,11 @@
       <p class="uppercase tracking-[0.2em] text-xs mb-4" style="color:var(--rust)">Galería</p>
       <h2 class="font-display text-3xl md:text-4xl">Un poco de Carmela</h2>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-      <img src="images/drinks-tray.webp" alt="Bandeja de bebidas" width="900" height="1012" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Bandeja de bebidas" class="gallery-item fade-up w-full h-64 md:h-52 object-cover rounded-xl">
-      <img src="images/strawberry-dessert.webp" alt="Postre de frutillas" width="864" height="1225" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Postre de frutillas" class="gallery-item fade-up w-full h-64 md:h-52 object-cover rounded-xl">
-      <img src="images/juice-banana-bread.webp" alt="Jugo y pan de banana" width="412" height="589" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Jugo y pan de banana" class="gallery-item fade-up w-full h-64 md:h-52 object-cover rounded-xl" style="object-position:top">
-      <img src="images/hero-exterior.webp" alt="Terraza exterior" width="1584" height="672" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Terraza exterior" class="gallery-item fade-up w-full h-64 md:h-52 object-cover rounded-xl">
+    <div class="grid grid-cols-1 gallery-grid md:grid-cols-4 gap-4">
+      <img src="images/drinks-tray.webp" alt="Bandeja de bebidas" width="900" height="1012" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Bandeja de bebidas" class="gallery-item fade-up gallery-photo rounded-xl">
+      <img src="images/strawberry-dessert.webp" alt="Postre de frutillas" width="864" height="1225" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Postre de frutillas" class="gallery-item fade-up gallery-photo rounded-xl">
+      <img src="images/juice-banana-bread.webp" alt="Jugo y pan de banana" width="412" height="589" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Jugo y pan de banana" class="gallery-item fade-up gallery-photo rounded-xl" style="object-position:top">
+      <img src="images/hero-exterior.webp" alt="Terraza exterior" width="1584" height="672" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Terraza exterior" class="gallery-item fade-up gallery-photo rounded-xl">
     </div>
   </div>
 </section>
