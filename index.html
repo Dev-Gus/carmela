@@ -86,7 +86,7 @@
      from 320px to 768px. aspect-ratio scales the height with the box's
      own width instead of using one height at every size. At md+ the
      4-column layout already looks right, so it reverts to a fixed height. */
-  .specialty-photo{width:100%; aspect-ratio:4/3; object-fit:cover;}
+  .specialty-photo{width:100%; aspect-ratio:3/2; object-fit:cover;}
   @media (min-width:768px){
     .specialty-photo{aspect-ratio:auto; height:16rem;}
   }
@@ -216,7 +216,7 @@
       <p class="uppercase tracking-[0.2em] text-xs mb-4" style="color:var(--gold)">Especialidades</p>
       <h2 class="font-display text-3xl md:text-4xl">Lo que más piden</h2>
     </div>
-    <div class="grid gap-10 md:grid-cols-4 md:gap-6">
+    <div class="grid gap-14 md:grid-cols-4 md:gap-6">
       <div class="fade-up rounded-2xl overflow-hidden group">
         <img src="images/cheesecake.webp" alt="Cheesecake de frutos rojos" width="934" height="1015" loading="lazy" class="specialty-photo group-hover:scale-105 transition duration-500">
         <p class="text-center mt-5 font-medium opacity-90">Tarta de frutos rojos</p>
@@ -308,7 +308,7 @@
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
       <img src="images/drinks-tray.webp" alt="Bandeja de bebidas" width="900" height="1012" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Bandeja de bebidas" class="gallery-item fade-up w-full h-64 md:h-52 object-cover rounded-xl">
       <img src="images/strawberry-dessert.webp" alt="Postre de frutillas" width="864" height="1225" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Postre de frutillas" class="gallery-item fade-up w-full h-64 md:h-52 object-cover rounded-xl">
-      <img src="images/juice-banana-bread.webp" alt="Jugo y pan de banana" width="412" height="589" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Jugo y pan de banana" class="gallery-item fade-up w-full h-64 md:h-52 object-cover rounded-xl">
+      <img src="images/juice-banana-bread.webp" alt="Jugo y pan de banana" width="412" height="589" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Jugo y pan de banana" class="gallery-item fade-up w-full h-64 md:h-52 object-cover rounded-xl" style="object-position:top">
       <img src="images/hero-exterior.webp" alt="Terraza exterior" width="1584" height="672" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Terraza exterior" class="gallery-item fade-up w-full h-64 md:h-52 object-cover rounded-xl">
     </div>
   </div>
