@@ -58,6 +58,7 @@
     --coffee:#3B2A1E;
     --gold:#C9A15C;
   }
+  html{scroll-behavior:smooth;}
   body{font-family:'Work Sans',sans-serif; background:var(--cream); color:var(--coffee);}
   .font-display{font-family:'Fraunces',serif;}
   .btn-primary{background:var(--rust); color:var(--cream); transition:all .2s ease;}
@@ -82,22 +83,17 @@
   .bg-rust-5{background:rgba(176,86,46,0.05);}
   .text-cream-70{color:rgba(247,241,231,0.70);}
 
-  /* Especialidades cards: fixed pixel height crops badly as width grows
-     from 320px to 768px. aspect-ratio scales the height with the box's
-     own width instead of using one height at every size. At md+ the
-     4-column layout already looks right, so it reverts to a fixed height. */
-  .specialty-photo{width:100%; aspect-ratio:3/2; object-fit:cover;}
-  @media (min-width:768px){
-    .specialty-photo{aspect-ratio:auto; height:16rem;}
-  }
+  /* Especialidades cards: no forced aspect-ratio or object-fit:cover,
+     so every photo shows in full at its natural proportions instead of
+     being cropped to fill a fixed box. align-items:start on the grid
+     keeps images from being stretched to match the tallest row. */
+  .specialty-photo{width:100%; height:auto; display:block;}
+  .specialty-grid{align-items:start;}
 
-  /* Gallery images: same reasoning as specialty-photo above — aspect-ratio
-     instead of a fixed height, so the box scales correctly across every
-     column count, including the new 2-column tier below. */
-  .gallery-photo{width:100%; aspect-ratio:4/3; object-fit:cover;}
-  @media (min-width:768px){
-    .gallery-photo{aspect-ratio:auto; height:13rem;}
-  }
+  /* Gallery images: same reasoning as specialty-photo above — natural
+     size, no cropping, grid rows sized to content instead of a fixed box. */
+  .gallery-photo{width:100%; height:auto; display:block;}
+  .gallery-grid{align-items:start;}
 
   /* Mid-size screens (480–767px): single column feels oversized here,
      but 4 columns (the md:768px+ layout) is too cramped. 2 columns
@@ -325,7 +321,7 @@
     <div class="grid grid-cols-1 gallery-grid md:grid-cols-4 gap-4">
       <img src="images/drinks-tray.webp" alt="Bandeja de bebidas" width="900" height="1012" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Bandeja de bebidas" class="gallery-item fade-up gallery-photo rounded-xl">
       <img src="images/strawberry-dessert.webp" alt="Postre de frutillas" width="864" height="1225" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Postre de frutillas" class="gallery-item fade-up gallery-photo rounded-xl">
-      <img src="images/juice-banana-bread.webp" alt="Jugo y pan de banana" width="412" height="589" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Jugo y pan de banana" class="gallery-item fade-up gallery-photo rounded-xl" style="object-position:top">
+      <img src="images/juice-banana-bread.webp" alt="Jugo y pan de banana" width="412" height="589" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Jugo y pan de banana" class="gallery-item fade-up gallery-photo rounded-xl">
       <img src="images/hero-exterior.webp" alt="Terraza exterior" width="1584" height="672" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Terraza exterior" class="gallery-item fade-up gallery-photo rounded-xl">
     </div>
   </div>
