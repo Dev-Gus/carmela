@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Página no encontrada — Carmela Coffee Shop</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%23F7F1E7'/%3E%3Cpath d='M6 9h11v5.5A4.5 4.5 0 0 1 12.5 19h-2A4.5 4.5 0 0 1 6 14.5V9Z' fill='none' stroke='%23B0562E' stroke-width='1.6'/%3E%3Cpath d='M17 10.5h1a2 2 0 0 1 0 4h-1' fill='none' stroke='%23B0562E' stroke-width='1.6'/%3E%3Cpath d='M9 5.5c0 .8-.7 1-.7 1.8s.7 1 .7 1.8M12 5.5c0 .8-.7 1-.7 1.8s.7 1 .7 1.8' stroke='%23B0562E' stroke-width='1.4' stroke-linecap='round' fill='none'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F7F1E7;
+    --rust:#B0562E;
+    --rust-dark:#7A3A1D;
+    --coffee:#3B2A1E;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    font-family:'Work Sans',sans-serif;
+    background:var(--cream);
+    color:var(--coffee);
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:24px;
+  }
+  .font-display{font-family:'Fraunces',serif;}
+  .logo{height:36px;width:auto;margin-bottom:48px;}
+  .code{
+    font-family:'Fraunces',serif;
+    font-size:clamp(4rem,15vw,7rem);
+    line-height:1;
+    color:var(--rust);
+    margin-bottom:16px;
+  }
+  h1{
+    font-family:'Fraunces',serif;
+    font-size:clamp(1.5rem,4vw,2rem);
+    margin-bottom:12px;
+  }
+  p{
+    font-size:15px;
+    opacity:0.75;
+    max-width:360px;
+    line-height:1.6;
+    margin-bottom:32px;
+  }
+  a.btn{
+    background:var(--rust);
+    color:var(--cream);
+    text-decoration:none;
+    padding:12px 28px;
+    border-radius:9999px;
+    font-size:14px;
+    transition:background .2s ease;
+  }
+  a.btn:hover{background:var(--rust-dark);}
+</style>
+</head>
+<body>
+  <img class="logo" src="images/logo-rust.webp" alt="Carmela">
+  <p class="code">404</p>
+  <h1>Esta página no existe</h1>
+  <p>Parece que el enlace está roto o la página se movió. Volvé al inicio para ver el menú, la galería y cómo visitarnos.</p>
+  <a class="btn" href="/">Volver al inicio</a>
+</body>
+</html>
