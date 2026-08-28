@@ -90,16 +90,20 @@
   .specialty-photo{width:100%; height:auto; display:block;}
   .specialty-grid{align-items:start;}
 
-  /* Gallery images: same reasoning as specialty-photo above — natural
-     size, no cropping, grid rows sized to content instead of a fixed box. */
-  .gallery-photo{width:100%; height:auto; display:block;}
-  .gallery-grid{align-items:start;}
+  /* Gallery: CSS multi-column masonry instead of grid. Each column sizes
+     itself independently to its own content, so a shorter photo next to
+     a taller one never leaves an empty gap the way row-based grid did.
+     break-inside:avoid keeps a photo from being sliced across columns;
+     margin-bottom does the vertical spacing columns don't provide on
+     their own. column-count breakpoints mirror the old grid breakpoints. */
+  .gallery-grid{column-count:1; column-gap:1rem;}
+  .gallery-photo{width:100%; height:auto; display:block; margin-bottom:1rem; break-inside:avoid;}
 
-  /* Marks a landscape photo to span the full grid row instead of sitting
-     in a single column. grid-column:1/-1 works regardless of how many
-     columns the grid has at any breakpoint, so this keeps working as
-     more photos (portrait or landscape) are added later. */
-  .gallery-photo-wide{grid-column:1/-1;}
+  /* Marks a landscape photo to span the full width and break the column
+     flow at that point — any photos after it continue in columns below.
+     Works automatically regardless of column count or list position, so
+     it keeps working as more photos (portrait or landscape) are added. */
+  .gallery-photo-wide{column-span:all;}
 
   /* Mid-size screens (480–767px): single column feels oversized here,
      but the md:768px+ layout (4 cols for especialidades, 3 for gallery)
@@ -107,7 +111,11 @@
      it never overlaps the mobile-only or md+ rules. */
   @media (min-width:480px) and (max-width:767.98px){
     .specialty-grid{grid-template-columns:repeat(2,1fr); gap:2rem;}
-    .gallery-grid{grid-template-columns:repeat(2,1fr);}
+    .gallery-grid{column-count:2;}
+  }
+
+  @media (min-width:768px){
+    .gallery-grid{column-count:3;}
   }
 
   /* WhatsApp floating action button */
@@ -324,7 +332,7 @@
       <p class="uppercase tracking-[0.2em] text-xs mb-4" style="color:var(--rust)">Galería</p>
       <h2 class="font-display text-3xl md:text-4xl">Un poco de Carmela</h2>
     </div>
-    <div class="grid grid-cols-1 gallery-grid md:grid-cols-3 gap-4">
+    <div class="gallery-grid">
       <img src="images/drinks-tray.webp" alt="Bandeja de bebidas" width="900" height="1012" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Bandeja de bebidas" class="gallery-item fade-up gallery-photo rounded-xl">
       <img src="images/strawberry-dessert.webp" alt="Postre de frutillas" width="864" height="1225" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Postre de frutillas" class="gallery-item fade-up gallery-photo rounded-xl">
       <img src="images/juice-banana-bread.webp" alt="Jugo y pan de banana" width="412" height="589" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Jugo y pan de banana" class="gallery-item fade-up gallery-photo rounded-xl">
