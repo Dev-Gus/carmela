@@ -95,10 +95,16 @@
   .gallery-photo{width:100%; height:auto; display:block;}
   .gallery-grid{align-items:start;}
 
+  /* Marks a landscape photo to span the full grid row instead of sitting
+     in a single column. grid-column:1/-1 works regardless of how many
+     columns the grid has at any breakpoint, so this keeps working as
+     more photos (portrait or landscape) are added later. */
+  .gallery-photo-wide{grid-column:1/-1;}
+
   /* Mid-size screens (480–767px): single column feels oversized here,
-     but 4 columns (the md:768px+ layout) is too cramped. 2 columns
-     bridges the gap. Bounded on both ends so it never overlaps the
-     mobile-only or md+ rules. */
+     but the md:768px+ layout (4 cols for especialidades, 3 for gallery)
+     is too cramped. 2 columns bridges the gap. Bounded on both ends so
+     it never overlaps the mobile-only or md+ rules. */
   @media (min-width:480px) and (max-width:767.98px){
     .specialty-grid{grid-template-columns:repeat(2,1fr); gap:2rem;}
     .gallery-grid{grid-template-columns:repeat(2,1fr);}
@@ -318,11 +324,11 @@
       <p class="uppercase tracking-[0.2em] text-xs mb-4" style="color:var(--rust)">Galería</p>
       <h2 class="font-display text-3xl md:text-4xl">Un poco de Carmela</h2>
     </div>
-    <div class="grid grid-cols-1 gallery-grid md:grid-cols-4 gap-4">
+    <div class="grid grid-cols-1 gallery-grid md:grid-cols-3 gap-4">
       <img src="images/drinks-tray.webp" alt="Bandeja de bebidas" width="900" height="1012" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Bandeja de bebidas" class="gallery-item fade-up gallery-photo rounded-xl">
       <img src="images/strawberry-dessert.webp" alt="Postre de frutillas" width="864" height="1225" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Postre de frutillas" class="gallery-item fade-up gallery-photo rounded-xl">
       <img src="images/juice-banana-bread.webp" alt="Jugo y pan de banana" width="412" height="589" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Jugo y pan de banana" class="gallery-item fade-up gallery-photo rounded-xl">
-      <img src="images/hero-exterior.webp" alt="Terraza exterior" width="1584" height="672" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Terraza exterior" class="gallery-item fade-up gallery-photo rounded-xl">
+      <img src="images/hero-exterior.webp" alt="Terraza exterior" width="1584" height="672" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Terraza exterior" class="gallery-item fade-up gallery-photo gallery-photo-wide rounded-xl">
     </div>
   </div>
 </section>
