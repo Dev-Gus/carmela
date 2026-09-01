@@ -99,11 +99,16 @@
   .gallery-grid{column-count:1; column-gap:1rem;}
   .gallery-photo{width:100%; height:auto; display:block; margin-bottom:1rem; break-inside:avoid;}
 
-  /* Marks a landscape photo to span the full width and break the column
-     flow at that point — any photos after it continue in columns below.
-     Works automatically regardless of column count or list position, so
-     it keeps working as more photos (portrait or landscape) are added. */
-  .gallery-photo-wide{column-span:all;}
+  /* Wide/landscape photo: NOT part of .gallery-grid. column-span:all
+     inside an auto-height multicol container forces an implicit balance
+     recalculation that produces large gaps in the preceding columns and
+     collapses the margin above the spanning item — a known bad interaction,
+     not something worth fighting. Simplest fix: this photo lives as its
+     own full-width sibling block after the masonry container, so the
+     multicol layout never has to reason about it at all. margin-top
+     recreates the vertical rhythm the grid's column-gap can't provide
+     across the boundary between the two elements. */
+  .gallery-photo-wide{margin-top:1rem;}
 
   /* Mid-size screens (480–767px): single column feels oversized here,
      but the md:768px+ layout (4 cols for especialidades, 3 for gallery)
@@ -336,8 +341,14 @@
       <img src="images/drinks-tray.webp" alt="Bandeja de bebidas" width="900" height="1012" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Bandeja de bebidas" class="gallery-item fade-up gallery-photo rounded-xl">
       <img src="images/strawberry-dessert.webp" alt="Postre de frutillas" width="864" height="1225" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Postre de frutillas" class="gallery-item fade-up gallery-photo rounded-xl">
       <img src="images/juice-banana-bread.webp" alt="Jugo y pan de banana" width="412" height="589" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Jugo y pan de banana" class="gallery-item fade-up gallery-photo rounded-xl">
-      <img src="images/hero-exterior.webp" alt="Terraza exterior" width="1584" height="672" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Terraza exterior" class="gallery-item fade-up gallery-photo gallery-photo-wide rounded-xl">
+      <img src="images/empanadas.webp" alt="Empanadas caseras" width="800" height="1116" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Empanadas caseras" class="gallery-item fade-up gallery-photo rounded-xl">
+      <img src="images/coffee-pancito.webp" alt="Café con pan de banana" width="800" height="1131" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Café con pan de banana" class="gallery-item fade-up gallery-photo rounded-xl">
+      <img src="images/quiches.webp" alt="Quiches del día" width="399" height="560" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Quiches del día" class="gallery-item fade-up gallery-photo rounded-xl">
+      <img src="images/pasteleria-variedad.webp" alt="Variedad de pastelería" width="595" height="590" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Variedad de pastelería" class="gallery-item fade-up gallery-photo rounded-xl">
+      <img src="images/rincon-ventana.webp" alt="Rincón junto a la ventana" width="331" height="442" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Rincón junto a la ventana" class="gallery-item fade-up gallery-photo rounded-xl">
+      <img src="images/barista-working.webp" alt="Barista preparando un café" width="1600" height="539" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Barista preparando un café" class="gallery-item fade-up gallery-photo rounded-xl">
     </div>
+    <img src="images/hero-exterior.webp" alt="Terraza exterior" width="1584" height="672" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Terraza exterior" class="gallery-item fade-up gallery-photo gallery-photo-wide rounded-xl">
   </div>
 </section>
 
