@@ -90,25 +90,35 @@
   .specialty-photo{width:100%; height:auto; display:block;}
   .specialty-grid{align-items:start;}
 
-  /* Gallery: CSS multi-column masonry instead of grid. Each column sizes
-     itself independently to its own content, so a shorter photo next to
-     a taller one never leaves an empty gap the way row-based grid did.
-     break-inside:avoid keeps a photo from being sliced across columns;
-     margin-bottom does the vertical spacing columns don't provide on
-     their own. column-count breakpoints mirror the old grid breakpoints. */
-  .gallery-grid{column-count:1; column-gap:1rem;}
-  .gallery-photo{width:100%; height:auto; display:block; margin-bottom:1rem; break-inside:avoid;}
+  /* Gallery: true masonry, built by JS (see bottom script), not CSS
+     multi-column. CSS multi-column fills column 1 top-to-bottom, then
+     column 2, then column 3, and *balances* total height across columns —
+     but that balance only works at whole-photo granularity, so with a
+     handful of photos of varying height one column often comes up short
+     and leaves empty space at the bottom. JS avoids that entirely: each
+     photo is placed into whichever column is currently shortest (real
+     Pinterest-style flow), so columns end up close to equal height no
+     matter how many photos are added later. This container is a flex row
+     of .gallery-col children that the script creates; column count comes
+     from the same breakpoints the old CSS used (1 / 2 / 3 at 480 / 768px).
+     Pre-JS fallback (noscript or slow parse): flex-wrap with 100%-width
+     photos just stacks them, which still looks fine. */
+  .gallery-grid{display:flex; flex-wrap:wrap; gap:1rem; align-items:flex-start;}
+  .gallery-col{display:flex; flex-direction:column; gap:1rem; flex:1 1 0; min-width:0;}
+  .gallery-photo{width:100%; height:auto; display:block;}
 
-  /* Wide/landscape photo: NOT part of .gallery-grid. column-span:all
-     inside an auto-height multicol container forces an implicit balance
-     recalculation that produces large gaps in the preceding columns and
-     collapses the margin above the spanning item — a known bad interaction,
-     not something worth fighting. Simplest fix: this photo lives as its
-     own full-width sibling block after the masonry container, so the
-     multicol layout never has to reason about it at all. margin-top
-     recreates the vertical rhythm the grid's column-gap can't provide
-     across the boundary between the two elements. */
-  .gallery-photo-wide{margin-top:1rem;}
+  /* Wide/landscape photo: NOT part of .gallery-grid — it's a full-width
+     sibling block, so the masonry columns never have to account for it.
+     Placed BEFORE the grid rather than after on purpose: masonry columns
+     rarely end at exactly the same height (see the JS masonry comment
+     below), and a ragged column edge reads as "normal" at the bottom of
+     a grid but as "broken" right above a crisp full-width photo, where
+     the contrast makes the misalignment obvious. Leading with the wide
+     photo means any unevenness trails off at the very bottom of the
+     section instead. margin-bottom recreates the vertical rhythm the
+     grid's column-gap can't provide across the boundary between the two
+     elements. */
+  .gallery-photo-wide{margin-bottom:1rem;}
 
   /* Mid-size screens (480–767px): single column feels oversized here,
      but the md:768px+ layout (4 cols for especialidades, 3 for gallery)
@@ -116,11 +126,6 @@
      it never overlaps the mobile-only or md+ rules. */
   @media (min-width:480px) and (max-width:767.98px){
     .specialty-grid{grid-template-columns:repeat(2,1fr); gap:2rem;}
-    .gallery-grid{column-count:2;}
-  }
-
-  @media (min-width:768px){
-    .gallery-grid{column-count:3;}
   }
 
   /* WhatsApp floating action button */
@@ -337,6 +342,7 @@
       <p class="uppercase tracking-[0.2em] text-xs mb-4" style="color:var(--rust)">Galería</p>
       <h2 class="font-display text-3xl md:text-4xl">Un poco de Carmela</h2>
     </div>
+    <img src="images/hero-exterior.webp" alt="Terraza exterior" width="1584" height="672" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Terraza exterior" class="gallery-item fade-up gallery-photo gallery-photo-wide rounded-xl">
     <div class="gallery-grid">
       <img src="images/drinks-tray.webp" alt="Bandeja de bebidas" width="900" height="1012" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Bandeja de bebidas" class="gallery-item fade-up gallery-photo rounded-xl">
       <img src="images/strawberry-dessert.webp" alt="Postre de frutillas" width="864" height="1225" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Postre de frutillas" class="gallery-item fade-up gallery-photo rounded-xl">
@@ -348,7 +354,6 @@
       <img src="images/rincon-ventana.webp" alt="Rincón junto a la ventana" width="331" height="442" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Rincón junto a la ventana" class="gallery-item fade-up gallery-photo rounded-xl">
       <img src="images/barista-working.webp" alt="Barista preparando un café" width="1600" height="539" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Barista preparando un café" class="gallery-item fade-up gallery-photo rounded-xl">
     </div>
-    <img src="images/hero-exterior.webp" alt="Terraza exterior" width="1584" height="672" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Terraza exterior" class="gallery-item fade-up gallery-photo gallery-photo-wide rounded-xl">
   </div>
 </section>
 
@@ -436,6 +441,80 @@
 </a>
 
 <script>
+  // Gallery masonry: places each photo into whichever column is currently
+  // shortest, so columns end up close to equal height (unlike CSS
+  // multi-column, which balances by whole photos and often leaves a gap
+  // at the bottom of one column). Column height per photo is computed
+  // from its width/height attributes rather than waiting for the image
+  // to load, so layout runs synchronously on parse with no flash and no
+  // load-event timing to get wrong. Runs once up front, then again
+  // (debounced) on resize so it stays correct as the column count
+  // changes at the 480px/768px breakpoints.
+  //
+  // Photos are placed tallest-relative-to-width first, not curation
+  // order. This is the standard fix for shortest-column-first placement:
+  // deciding "which column is shortest" in arbitrary order has no
+  // foresight, so two tall photos can land in the same column before a
+  // short one arrives to even things out, leaving a gap that can't be
+  // closed later. Placing the tall photos first and letting shorter ones
+  // fill in afterwards (the "longest processing time" rule for this exact
+  // class of balancing problem) keeps columns markedly closer in height.
+  // It won't reach a mathematically perfect balance with only a handful
+  // of photos of uneven size — that residual gap shrinks as more photos
+  // are added — but it's a meaningful, principled improvement over
+  // placing photos in whatever order they happen to appear in the grid.
+  (function(){
+    const grid = document.querySelector('.gallery-grid');
+    if (!grid) return;
+    const items = Array.from(grid.querySelectorAll('img.gallery-photo'))
+      .sort((a, b) => {
+        const arA = (parseInt(a.getAttribute('height'), 10) || 1) / (parseInt(a.getAttribute('width'), 10) || 1);
+        const arB = (parseInt(b.getAttribute('height'), 10) || 1) / (parseInt(b.getAttribute('width'), 10) || 1);
+        return arB - arA;
+      });
+    const GAP = 16; // matches the 1rem gap set in CSS
+
+    function columnCount(){
+      const w = window.innerWidth;
+      if (w >= 768) return 3;
+      if (w >= 480) return 2;
+      return 1;
+    }
+
+    function layoutMasonry(){
+      const cols = columnCount();
+      const containerWidth = grid.clientWidth;
+      const colWidth = (containerWidth - GAP * (cols - 1)) / cols;
+      const colEls = Array.from({length: cols}, () => {
+        const col = document.createElement('div');
+        col.className = 'gallery-col';
+        return col;
+      });
+      const colHeights = new Array(cols).fill(0);
+
+      items.forEach(img => {
+        const w0 = parseInt(img.getAttribute('width'), 10) || 1;
+        const h0 = parseInt(img.getAttribute('height'), 10) || 1;
+        const renderedHeight = colWidth * (h0 / w0);
+        let shortest = 0;
+        for (let i = 1; i < cols; i++){
+          if (colHeights[i] < colHeights[shortest]) shortest = i;
+        }
+        colEls[shortest].appendChild(img);
+        colHeights[shortest] += renderedHeight + GAP;
+      });
+
+      grid.replaceChildren(...colEls);
+    }
+
+    layoutMasonry();
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(layoutMasonry, 150);
+    });
+  })();
+
   const els = document.querySelectorAll('.fade-up');
   const io = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); } });
